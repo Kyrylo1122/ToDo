@@ -1,8 +1,8 @@
 import styles from "./index.module.scss";
 import { useToDoStore } from "../../data/Stores/useToDoStore";
-import React, { useEffect } from "react";
+import React from "react";
 import { InputPlus } from "../Components/InputPlus";
-import { TasksList } from "../Components/TasksList";
+import { InputTask } from "../Components/InputTask";
 export const App: React.FC = () => {
   const [tasks, createTask, updateTask, removeTask] = useToDoStore((state) => [
     state.tasks,
@@ -11,7 +11,6 @@ export const App: React.FC = () => {
     state.removeTask,
   ]);
 
-  console.log(tasks);
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>ToDo App</h1>
@@ -30,7 +29,7 @@ export const App: React.FC = () => {
         <ul>
           {tasks.map(({ id, title }) => (
             <li key={id}>
-              <TasksList
+              <InputTask
                 id={id}
                 title={title}
                 onEdited={updateTask}

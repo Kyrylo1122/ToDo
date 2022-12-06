@@ -1,0 +1,18 @@
+.inputTask {
+  display: flex;
+  justify-content: space-between;
+  &__label {
+    cursor: pointer;
+  }
+  &__checkbox {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+  &__btn {
+    padding: 5px 10px;
+  }
+  &__checked {
+    text-decoration: line-through;
+  }
+}

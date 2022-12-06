@@ -4,6 +4,7 @@ import { App } from "./views/App";
 
 import "./views/Styles/Reset.scss";
 import "./views/Styles/Common.scss";
+import "./views/Styles/Hidden.scss";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

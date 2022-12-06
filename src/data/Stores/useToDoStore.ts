@@ -1,5 +1,6 @@
 import create from "zustand";
 import { generateId } from "../helpers";
+import { devtools, persist } from "zustand/middleware";
 
 interface Task {
   id: string;
@@ -13,31 +14,36 @@ interface ToDoStore {
   removeTask: (id: string) => void;
 }
 
-export const useToDoStore = create<ToDoStore>((set, get) => ({
-  tasks: [
-    { id: "fg", title: "First task", isDone: false, createdAt: Date.now() },
-    { id: "fgfd", title: "Second task", isDone: false, createdAt: Date.now() },
-  ],
-  createTask: (title) => {
-    const { tasks } = get();
-    const newTask: Task = {
-      id: generateId(),
-      title,
-      createdAt: Date.now(),
-    };
-    set({ tasks: [newTask, ...tasks] });
-  },
-  updateTask: (id: string, title: string) => {
-    const { tasks } = get();
-    set({
-      tasks: tasks.map((task) => ({
-        ...task,
-        title: task.id === id ? title : task.title,
-      })),
-    });
-  },
-  removeTask: (id: string) => {
-    const { tasks } = get();
-    set({ tasks: tasks.filter((task) => task.id !== id) });
-  },
-}));
+export const useToDoStore = create<ToDoStore>()(
+  devtools(
+    persist(
+      (set, get) => ({
+        tasks: [],
+        createTask: (title) => {
+          const { tasks } = get();
+          const newTask: Task = {
+            id: generateId(),
+            title,
+            createdAt: Date.now(),
+          };
+          set({ tasks: [newTask, ...tasks] });
+        },
+        updateTask: (id: string, title: string) => {
+          const { tasks } = get();
+          set({
+            tasks: tasks.map((task) => ({
+              ...task,
+              title: task.id === id ? title : task.title,
+            })),
+          });
+        },
+        removeTask: (id: string) => {
+          const { tasks } = get();
+          set({ tasks: tasks.filter((task) => task.id !== id) });
+        },
+      }),
+      { name: "tasks-storage" }
+    ),
+    { enabled: false }
+  )
+);
