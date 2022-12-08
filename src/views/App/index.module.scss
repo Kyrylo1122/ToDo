@@ -1,13 +1,59 @@
 .container {
-  padding: 20px 55px;
-  min-width: 600px;
-  background-color: #ffffff;
-  border-radius: 5px;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 50px 55px;
+
+  box-shadow: 0px 0px 34px 0px rgb(167, 246, 253);
+  width: 700px;
+  background: rgb(0, 255, 177);
+  background: linear-gradient(
+    170deg,
+    rgba(0, 255, 177, 1) 0%,
+    rgba(2, 173, 251, 1) 100%
+  );
+  border-radius: 20px;
+
+  color: white;
 }
+
 .title {
   margin-bottom: 20px;
 
-  color: rgb(46, 1, 1);
   font-size: 54px;
+  font-weight: 700;
   text-align: center;
+}
+.clearAll__btn {
+  margin: 20px 0;
+  font-size: large;
+  font-weight: 600;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: -5px;
+}
+.item {
+  margin: 5px;
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 480px;
+
+    margin-top: 5 0px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .container {
+    margin-top: 0px;
+    padding: 25px;
+
+    width: 320px;
+  }
+  .title {
+    margin-bottom: 20px;
+
+    font-size: 36px;
+  }
 }

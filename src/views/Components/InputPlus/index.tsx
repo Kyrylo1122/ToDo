@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from "react";
 import styles from "./index.module.scss";
+
+import { BsPlusLg } from "react-icons/bs";
 interface InputPlusProps {
   onAdd: (title: string) => void;
 }
@@ -12,9 +14,9 @@ export const InputPlus: React.FC<InputPlusProps> = ({ onAdd }) => {
   }, [inputValue]);
 
   return (
-    <>
+    <div className={styles.inputPlus}>
       <input
-        className={styles.inputPlusValue}
+        className={styles.inputPlus__input}
         type="text"
         value={inputValue}
         onChange={(evt) => setInputValue(evt.target.value)}
@@ -25,13 +27,9 @@ export const InputPlus: React.FC<InputPlusProps> = ({ onAdd }) => {
         }}
         placeholder="Type here..."
       />
-      <button
-        type="button"
-        className={styles.inputPlusButton}
-        onClick={addTask}
-      >
-        Add Task
+      <button type="button" className={styles.inputPlus__btn} onClick={addTask}>
+        <BsPlusLg />
       </button>
-    </>
+    </div>
   );
 };

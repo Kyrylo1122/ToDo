@@ -1,6 +1,7 @@
 import create from "zustand";
 import { generateId } from "../helpers";
 import { devtools, persist } from "zustand/middleware";
+import { toast } from "react-toastify";
 
 interface Task {
   id: string;
@@ -12,6 +13,7 @@ interface ToDoStore {
   createTask: (title: string) => void;
   updateTask: (id: string, title: string) => void;
   removeTask: (id: string) => void;
+  clearAll: () => void;
 }
 
 export const useToDoStore = create<ToDoStore>()(
@@ -20,6 +22,10 @@ export const useToDoStore = create<ToDoStore>()(
       (set, get) => ({
         tasks: [],
         createTask: (title) => {
+          if (!title.trim().length) {
+            toast("The field cannot be empty");
+            return;
+          }
           const { tasks } = get();
           const newTask: Task = {
             id: generateId(),
@@ -40,6 +46,9 @@ export const useToDoStore = create<ToDoStore>()(
         removeTask: (id: string) => {
           const { tasks } = get();
           set({ tasks: tasks.filter((task) => task.id !== id) });
+        },
+        clearAll: () => {
+          set({ tasks: [] });
         },
       }),
       { name: "tasks-storage" }

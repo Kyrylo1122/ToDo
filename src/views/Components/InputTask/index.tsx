@@ -32,6 +32,7 @@ export const InputTask: React.FC<InputTaskProps> = ({
             onChange={(event) => {
               setValue(event?.target?.value);
             }}
+            className={styles.inputTask__input}
             ref={editTitleInputRef}
             onKeyDown={(event) => {
               if (event.code === "Enter") {
@@ -52,17 +53,28 @@ export const InputTask: React.FC<InputTaskProps> = ({
               setChecked((state) => !state);
             }}
           />
-          {checked ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
-          <span className={checked ? `${styles.inputTask__checked}` : ""}>
+          <div>
+            {checked ? (
+              <ImCheckboxChecked size="1.5rem" />
+            ) : (
+              <ImCheckboxUnchecked size="1.5rem" />
+            )}
+          </div>
+          <span
+            className={`${styles.inputTask__span} ${
+              checked ? `${styles.inputTask__checked}` : ""
+            }`}
+          >
             {title}
           </span>
         </label>
       )}
 
-      <div>
+      <div className={styles.inputTask__btn__container}>
         {editTitle ? (
           <button
             type="button"
+            className="btn"
             onClick={() => {
               onEdited(id, value);
               setEditTitle(false);
@@ -73,7 +85,7 @@ export const InputTask: React.FC<InputTaskProps> = ({
         ) : (
           <button
             type="button"
-            className={styles.inputTask__btn}
+            className="btn"
             onClick={() => {
               setEditTitle(true);
             }}
@@ -84,7 +96,7 @@ export const InputTask: React.FC<InputTaskProps> = ({
 
         <button
           type="button"
-          className={styles.inputTask__btn}
+          className="btn"
           onClick={() => {
             onRemoved(id);
           }}
